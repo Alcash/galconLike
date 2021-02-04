@@ -11,6 +11,9 @@ public class PlanetController : MonoBehaviour
     private PlanetInfo planetInfo;
     public PlanetInfo PlanetInfo => planetInfo;
 
+    private int minPlanetSize = 2;
+    private int maxPlanetSize = 10;
+
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
@@ -49,7 +52,7 @@ public class PlanetController : MonoBehaviour
     {
         if (PlanetInfo.ShipCount == 0)
         {
-            PlanetInfo.TeamInfo = shipController.TeamInfo;
+            ChangeTeam(shipController.TeamInfo);
         }
 
         if (planetInfo.TeamInfo == shipController.TeamInfo)
@@ -60,6 +63,18 @@ public class PlanetController : MonoBehaviour
         {
             PlanetInfo.ChangeShipCount(-shipController.ShipPower);
         }       
+    }
+
+    private void OnEnable()
+    {
+        int size = Random.Range(minPlanetSize, maxPlanetSize);
+        
+        planetInfo.SetSize(size);       
+    }
+
+    public void ChangeTeam(TeamInfo teamInfo)
+    {
+        planetInfo.TeamInfo = teamInfo;
     }
 }
 
