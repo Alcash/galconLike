@@ -47,7 +47,11 @@ public class ShipController : MonoBehaviour
         targetPlanet = planet;
     }
 
-    internal void SetTeam(TeamInfo newTeamInfo)
+    /// <summary>
+    /// Установить команду
+    /// </summary>
+    /// <param name="newTeamInfo"></param>
+    public void SetTeam(TeamInfo newTeamInfo)
     {
         teamInfo = newTeamInfo;
     }
