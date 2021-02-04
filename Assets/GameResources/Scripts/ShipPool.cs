@@ -10,6 +10,7 @@ public class ShipPool : MonoBehaviour
 {
     public static ShipPool Instance;
 
+    [SerializeField]
     private ShipController shipPrefab;
 
     private List<ShipController> objectsPool;

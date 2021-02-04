@@ -8,8 +8,22 @@ using UnityEngine.Events;
 /// </summary>
 public class PlanetInfo : MonoBehaviour
 {
-  
-    public TeamInfo TeamInfo = new TeamInfo();
+
+    private TeamInfo teamInfo = new TeamInfo();
+
+    public TeamInfo TeamInfo
+    {
+        get
+        {
+            return teamInfo;
+        }
+
+        set
+        {
+            teamInfo = value;
+            onInfoChanged.Invoke();
+        }
+    }
 
     public UnityEvent onInfoChanged = new UnityEvent();
 
@@ -28,6 +42,12 @@ public class PlanetInfo : MonoBehaviour
     {
         shipCount += count;
         onInfoChanged.Invoke();
-    }   
+    }  
+    
+    public void SetSize(int newSize)
+    {
+        size = newSize;
+        onInfoChanged.Invoke();
+    }
    
 }

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 /// </summary>
 public class ShipController : MonoBehaviour
 {
-    private TeamInfo teamInfo;
+    private TeamInfo teamInfo = new TeamInfo();
     public TeamInfo TeamInfo => teamInfo;
 
     private PlanetController targetPlanet;
@@ -24,7 +24,10 @@ public class ShipController : MonoBehaviour
 
     private void Update()
     {
-        isNearDistPlanet = (transform.position - targetPlanet.transform.position).magnitude < targetPlanet.PlanetInfo.Size;
+        if (targetPlanet != null)
+        {
+            isNearDistPlanet = (transform.position - targetPlanet.transform.position).magnitude < targetPlanet.PlanetInfo.Size;
+        }
 
         if(isNearDistPlanet)
         {
@@ -47,7 +50,11 @@ public class ShipController : MonoBehaviour
         targetPlanet = planet;
     }
 
-    internal void SetTeam(TeamInfo newTeamInfo)
+    /// <summary>
+    /// Установить команду
+    /// </summary>
+    /// <param name="newTeamInfo"></param>
+    public void SetTeam(TeamInfo newTeamInfo)
     {
         teamInfo = newTeamInfo;
     }
