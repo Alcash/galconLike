@@ -46,9 +46,7 @@ public class ShipPool : MonoBehaviour
         }
 
         ShipController result = objectsPool.FirstOrDefault();
-
-        objectsPool.Remove(result);
-        result.gameObject.SetActive(true);
+        objectsPool.Remove(result);        
         return result;       
     }
 

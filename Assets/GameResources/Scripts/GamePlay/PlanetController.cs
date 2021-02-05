@@ -38,8 +38,11 @@ public class PlanetController : MonoBehaviour
             ShipController ship = ShipPool.Instance.GetObject();
             ship.transform.position = transform.position;
             ship.SetTeam(planetInfo.TeamInfo);
-            ship.SetTarget(anotherPlanetController);
+            ship.gameObject.SetActive(true);
+
+            ship.SetTarget(anotherPlanetController);           
             planetInfo.ChangeShipCount(-ship.ShipPower);
+            
             yield return null;
         }
     }
