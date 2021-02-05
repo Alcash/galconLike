@@ -1,33 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Контроллер игры
 /// </summary>
 public class GameController : MonoBehaviour
-{
-    
+{   
     [SerializeField]
     private GameObject planetPrefab;
 
     private int minPlanetCount = 2;
     private int maxPlanetCount = 10;
-
-    [SerializeField]
-    private TeamInfo playerTeam;
+       
+    private PlayerController playerController;
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
 
+     
 
     private void OnEnable()
     {
-        CreateWorld();
+        playerController = FindObjectOfType<PlayerController>();
+        CreateWorld();    
     }
 
     private void CreateWorld()
     {
-
 
         int planetCount = Random.Range(minPlanetCount, maxPlanetCount);
 
@@ -45,11 +45,11 @@ public class GameController : MonoBehaviour
     private void CreatePlanet(Vector3 vector3)
     {
         GameObject planetGO = Instantiate(planetPrefab, vector3,Quaternion.identity);
-        planetControllers.Add(planetGO.GetComponent<PlanetController>());
+        planetControllers.Add(planetGO.GetComponent<PlanetController>());        
     }
 
     private void ChoosePlayerPlanet(PlanetController planetController)
     {
-        planetController.ChangeTeam(playerTeam);
+        planetController.ChangeTeam(playerController.PlayerTeam);
     }
 }

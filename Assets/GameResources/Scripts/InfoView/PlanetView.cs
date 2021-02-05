@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 /// <summary>
@@ -9,29 +10,42 @@ using UnityEngine;
 [RequireComponent(typeof(PlanetInfo))]
 public class PlanetView : TeamView
 {
+    public static EventPlanet onNewPlanet = new EventPlanet();
     protected override TeamInfo teamInfo { get => planetInfo.TeamInfo; }
 
     private PlanetInfo planetInfo;
+
+    private float planetSizeOffset = 3;
 
     protected override void Awake()
     {
         base.Awake();
 
         planetInfo = GetComponent<PlanetInfo>();
+       
+    }
+
+    private void Start()
+    {
+        Debug.Log("onNewPlanet");
+        onNewPlanet.Invoke(planetInfo);
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         planetInfo.onInfoChanged.AddListener(UpdateView);
+       
     }
 
     protected override void UpdateView()
     {
         base.UpdateView();
-        if (planetInfo.Size != transform.localScale.x)
+        float trueSize = planetSizeOffset * planetInfo.Size;
+
+        if (trueSize != transform.localScale.x)
         {
-            transform.localScale = new Vector3(planetInfo.Size, planetInfo.Size, planetInfo.Size);
+            transform.localScale = Vector3.one * trueSize;
         }
     }
 
@@ -40,3 +54,6 @@ public class PlanetView : TeamView
         planetInfo.onInfoChanged.RemoveListener(UpdateView);
     }
 }
+
+public class EventPlanet : UnityEvent<PlanetInfo> { }
+  

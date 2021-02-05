@@ -32,8 +32,6 @@ public abstract class TeamView : MonoBehaviour
         if (material.color != teamInfo.TeamColor)
         {
             material.color = teamInfo.TeamColor;
-        }
-
-        Debug.Log(material.color);
+        }        
     }    
 }

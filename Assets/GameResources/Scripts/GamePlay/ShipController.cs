@@ -48,6 +48,7 @@ public class ShipController : MonoBehaviour
     public void SetTarget(PlanetController planet)
     {
         targetPlanet = planet;
+        agent.SetDestination(targetPlanet.transform.position);
     }
 
     /// <summary>
