@@ -44,6 +44,10 @@ public class PlanetInfo : MonoBehaviour
         onInfoChanged.Invoke();
     }  
     
+    /// <summary>
+    /// Установить размер
+    /// </summary>
+    /// <param name="newSize"></param>
     public void SetSize(int newSize)
     {
         size = newSize;

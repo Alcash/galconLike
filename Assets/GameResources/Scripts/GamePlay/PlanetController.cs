@@ -11,8 +11,8 @@ public class PlanetController : MonoBehaviour
     private PlanetInfo planetInfo;
     public PlanetInfo PlanetInfo => planetInfo;
 
-    private int minPlanetSize = 2;
-    private int maxPlanetSize = 10;
+    private int minPlanetSize = 3;
+    private int maxPlanetSize = 7;
 
     private void Awake()
     {
@@ -75,8 +75,13 @@ public class PlanetController : MonoBehaviour
         planetInfo.SetSize(size);       
     }
 
+    /// <summary>
+    /// Изменяет команду планеты
+    /// </summary>
+    /// <param name="teamInfo"></param>
     public void ChangeTeam(TeamInfo teamInfo)
     {
+        Debug.Log("ChangeTeam");
         planetInfo.TeamInfo = teamInfo;
     }
 }

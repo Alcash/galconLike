@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,18 +19,27 @@ public class GenerateShips : MonoBehaviour
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
+        planetInfo.onInfoChanged.AddListener(UpdateGenerateShip);        
+    }
 
+    private void OnDestroy()
+    {
+        planetInfo.onInfoChanged.RemoveListener(UpdateGenerateShip);
+    }
+
+    private void UpdateGenerateShip()
+    {
         //TODO: Ограничение для нейтралов. если не придумаю лучше
-        if(planetInfo.TeamInfo.TeamName == "Neutral")
+        if (planetInfo.TeamInfo.TeamName == "Neutral")
         {
             shipPerPeriod = 1;
             timerPeriod = 5;
         }
     }
-    
+
     private void Update()
     {
-        if (planetInfo != null && )
+        if (planetInfo != null)
         {
             if (timer > 0)
             {
@@ -41,5 +51,5 @@ public class GenerateShips : MonoBehaviour
                 planetInfo.ChangeShipCount(shipPerPeriod);
             }
         }
-    }
+    }    
 }

@@ -19,18 +19,19 @@ public abstract class TeamView : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         material = meshRenderer.material;
         meshRenderer.material = Instantiate(material);
-        material = meshRenderer.material;
+        material = meshRenderer.material;       
     }
 
     protected virtual void OnEnable()
-    {
+    {        
         UpdateView();
+       
     }
 
     protected virtual void UpdateView()
-    {
+    {       
         if (material.color != teamInfo.TeamColor)
-        {
+        {           
             material.color = teamInfo.TeamColor;
         }        
     }    

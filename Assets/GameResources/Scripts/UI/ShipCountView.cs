@@ -22,8 +22,7 @@ public class ShipCountView : MonoBehaviour
     /// <param name="planetInfo"></param>
     public void SetPlanetInfo(PlanetInfo info)
     {
-        camera = Camera.main;
-       
+        camera = Camera.main;       
 
         planetInfo = info;
         planetInfo.onInfoChanged.AddListener(UpdateView);

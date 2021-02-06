@@ -20,23 +20,14 @@ public class PlanetView : TeamView
     protected override void Awake()
     {
         base.Awake();
-
         planetInfo = GetComponent<PlanetInfo>();
-       
+        planetInfo.onInfoChanged.AddListener(UpdateView);
     }
 
     private void Start()
-    {
-        Debug.Log("onNewPlanet");
+    {        
         onNewPlanet.Invoke(planetInfo);
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        planetInfo.onInfoChanged.AddListener(UpdateView);
-       
-    }
+    }    
 
     protected override void UpdateView()
     {
@@ -49,10 +40,10 @@ public class PlanetView : TeamView
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         planetInfo.onInfoChanged.RemoveListener(UpdateView);
-    }
+    }    
 }
 
 public class EventPlanet : UnityEvent<PlanetInfo> { }

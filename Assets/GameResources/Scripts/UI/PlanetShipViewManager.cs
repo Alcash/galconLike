@@ -13,12 +13,10 @@ public class PlanetShipViewManager : MonoBehaviour
     private void Awake()
     {
         PlanetView.onNewPlanet.AddListener( NewPlanetHandler);
-        Debug.Log("Awake");
     }
 
     private void NewPlanetHandler(PlanetInfo planetInfo)
-    {
-        Debug.Log("NewPlanetHandler");
+    {        
         ShipCountView shipCountView = Instantiate(shipCountViewPrefab,transform);
         shipCountView.SetPlanetInfo(planetInfo);
     }

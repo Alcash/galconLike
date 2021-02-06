@@ -63,13 +63,17 @@ public class PlayerController : MonoBehaviour
 
     private void ManageSelectedPlanets(PlanetController planetController)
     {
+        SelectedPlanetView select = planetController.GetComponent<SelectedPlanetView>();
+
         if (selectedPlanets.Contains(planetController))
         {
             selectedPlanets.Remove(planetController);
+            select.SelectPlanet(false);
         }
         else
         {
             selectedPlanets.Add(planetController);
+            select.SelectPlanet(true);
         }
 
     }
