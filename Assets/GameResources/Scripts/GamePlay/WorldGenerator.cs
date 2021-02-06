@@ -12,18 +12,23 @@ public class WorldGenerator : MonoBehaviour
 {   
     [SerializeField]
     private GameObject planetPrefab;
-
-    private int minPlanetCount = 2;
+    [SerializeField]
+    private int minPlanetCount = 3;
+    [SerializeField]
     private int maxPlanetCount = 10;
        
     private PlayerController playerController;
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
 
+    [SerializeField]
     private int minPlanetSize = 6;
+    [SerializeField]
     private int maxPlanetSize = 15;
 
+    [SerializeField]
     private int worldHeight = 42*2;
+    [SerializeField]
     private int worldWidth = 78*2;
 
 
@@ -42,8 +47,6 @@ public class WorldGenerator : MonoBehaviour
                 worldGrid[i][y] = false;
             }
         }
-
-        Debug.LogFormat("worldHeight:{0}   worldWidth:{1} ", worldHeight, worldWidth);
     }
 
     private Vector4 GeneratePlanetParam()
@@ -65,7 +68,7 @@ public class WorldGenerator : MonoBehaviour
         }
         while (CheckLockPlace(x, z, size));
 
-        BypassGrid(x, z, size, SetLockPlace);
+        BypassGridLock(x, z, size);
 
         result.x = x - worldWidth / 2;
         result.z = z - worldHeight / 2;
@@ -75,7 +78,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void BypassGrid(int x, int y, int size, Action<int?,int?> action)
     {
-        int deltaX = size / 2 +1 ;
+        int deltaX = size ;
 
         for (int xIndex = x - deltaX; x + deltaX > xIndex; xIndex++)
         {
@@ -85,7 +88,19 @@ public class WorldGenerator : MonoBehaviour
             }
         }
     }
-   
+
+    private void  BypassGridLock(int x, int y, int size)
+    {
+        int deltaX = (size / 2) + 1;
+
+        for (int xIndex = x - deltaX; x + deltaX > xIndex; xIndex++)
+        {
+            for (int yIndex = y - deltaX; y + deltaX > yIndex; yIndex++)
+            {
+                worldGrid[(int)xIndex][(int)yIndex] = true;
+            }
+        }
+    }
 
     private void SetLockPlace(int? xIndex, int? yIndex)
     {     
@@ -96,24 +111,15 @@ public class WorldGenerator : MonoBehaviour
 
     private bool CheckLockPlace(int x,int y,int size)
     {   
-        int deltaX = size / 2;
-        Debug.LogFormat("x: {0} y:{1} size:{2}", x, y, size);
+        int deltaX = size / 2;        
         for (int xIndex = x- deltaX; x + deltaX > xIndex; xIndex++)
         {
             for (int yIndex = y - deltaX; y + deltaX > yIndex; yIndex++)
-            {
-                Debug.LogFormat("x:{0}   y:{1} ", xIndex, yIndex);
-                Debug.LogFormat("xgrid:{0} ", worldGrid.Length);
-                Debug.LogFormat("xgrid:{0}", worldGrid[xIndex].Length);
+            {               
                 if (worldGrid[xIndex][yIndex])
                 {
                     return true;
-                }
-
-                if(xIndex + yIndex > size *2)
-                {
-                    return false;
-                }
+                }               
             }
         }
 
@@ -134,6 +140,11 @@ public class WorldGenerator : MonoBehaviour
         for(int i = 0; i< planetCount; i++)
         {
             Vector4 spawnPos = GeneratePlanetParam();
+
+            spawnPos.x += transform.position.x;
+            spawnPos.z += transform.position.z;
+
+
             spawnPos.y = transform.position.y;
             CreatePlanet(spawnPos);
         }

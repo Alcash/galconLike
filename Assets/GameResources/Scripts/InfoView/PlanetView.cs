@@ -15,7 +15,6 @@ public class PlanetView : TeamView
 
     private PlanetInfo planetInfo;
 
-    private float planetSizeOffset = 1;
 
     protected override void Awake()
     {
@@ -32,7 +31,7 @@ public class PlanetView : TeamView
     protected override void UpdateView()
     {
         base.UpdateView();
-        float trueSize = planetSizeOffset * planetInfo.Size;
+        float trueSize = planetInfo.Size;
 
         if (trueSize != transform.localScale.x)
         {
