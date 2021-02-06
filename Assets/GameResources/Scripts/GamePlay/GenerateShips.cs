@@ -22,28 +22,38 @@ public class GenerateShips : MonoBehaviour
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
-        planetInfo.onInfoChanged.AddListener(UpdateGenerateShip);        
+        planetInfo.OnTeamChanged.AddListener(UpdateGenerateShip);
+        UpdateGenerateShip();
     }
 
     private void OnDestroy()
     {
-        planetInfo.onInfoChanged.RemoveListener(UpdateGenerateShip);
+        planetInfo.OnTeamChanged.RemoveListener(UpdateGenerateShip);
     }
 
     private void UpdateGenerateShip()
-    {
+    {       
         //TODO: Ограничение для нейтралов. если не придумаю лучше
         if (planetInfo.TeamInfo.TeamName == "Neutral")
         {
-            shipPerPeriod = difficultSetting.GenerateShipNeutral;
-            timerPeriod = difficultSetting.GenerateShipNeutralTime;
+            SetParam (difficultSetting.Neutral);
+          
+        }
+        else if(planetInfo.TeamInfo.TeamName == "Player")
+        {
+            SetParam(difficultSetting.Player);
+           
         }
         else
         {
+            SetParam(difficultSetting.Bot);
+        }        
+    }
 
-            shipPerPeriod = difficultSetting.GenerateShipPlayer;
-            timerPeriod = difficultSetting.GenerateShipPlayerTime;
-        }
+    private void SetParam(PlanetGenShipParam param)
+    {
+        shipPerPeriod = param.GenerateShip;
+        timerPeriod = param.GenerateShipTime;
     }
 
     private void Update()

@@ -15,17 +15,16 @@ public class DifficultSetting : ScriptableObject
     private int maxPlanetCount = 10;
     public int MaxPlanetCount => maxPlanetCount;
     [SerializeField]
-    private int generateShipNeutral = 1;
-    public int GenerateShipNeutral => generateShipNeutral;
+    private PlanetGenShipParam neutral;
+    public PlanetGenShipParam Neutral => neutral;
+
     [SerializeField]
-    private int generateShipNeutralTime = 5;
-    public int GenerateShipNeutralTime => generateShipNeutralTime;
+    private PlanetGenShipParam player;
+    public PlanetGenShipParam Player => player;
+
     [SerializeField]
-    private int generateShipPlayer = 1;
-    public int GenerateShipPlayer => generateShipPlayer;
-    [SerializeField]
-    private int generateShipPlayerTime = 5;
-    public int GenerateShipPlayerTime => generateShipPlayerTime;
+    private PlanetGenShipParam bot;
+    public PlanetGenShipParam Bot => player;
 
     /// <summary>
     /// Установить значение на основе
@@ -35,9 +34,31 @@ public class DifficultSetting : ScriptableObject
     {
         minPlanetCount = difficultSetting.MinPlanetCount;
         maxPlanetCount = difficultSetting.MaxPlanetCount;
-        generateShipNeutral = difficultSetting.GenerateShipNeutral;
-        generateShipNeutralTime = difficultSetting.GenerateShipNeutralTime;
-        generateShipPlayer = difficultSetting.GenerateShipPlayer;
-        generateShipPlayerTime = difficultSetting.GenerateShipPlayerTime;
+        Debug.Log("difficultSetting" + difficultSetting.name);
+        Debug.Log("GenerateShip.Bot" + difficultSetting.Bot.GenerateShip);
+
+        player.GenerateShip = difficultSetting.Player.GenerateShip;
+        player.GenerateShipTime = difficultSetting.Player.GenerateShipTime;
+
+        neutral.GenerateShip = difficultSetting.Neutral.GenerateShip;
+        neutral.GenerateShipTime = difficultSetting.Neutral.GenerateShipTime;
+
+        bot.GenerateShip = difficultSetting.Bot.GenerateShip;
+        bot.GenerateShipTime = difficultSetting.Bot.GenerateShipTime;
+
+        Debug.Log("GenerateShip.Bot" + bot.GenerateShip);
     }
+
+    private void SctructSet(PlanetGenShipParam param, PlanetGenShipParam newParam)
+    {
+        param.GenerateShip = newParam.GenerateShip;
+        param.GenerateShipTime = newParam.GenerateShipTime;
+    }
+}
+
+[System.Serializable]
+public class PlanetGenShipParam
+{   
+    public int GenerateShip;
+    public int GenerateShipTime;
 }

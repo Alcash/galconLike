@@ -25,11 +25,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-           
-        }
+    {       
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,6 +41,21 @@ public class PlayerController : MonoBehaviour
             }
                
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = cameraPlayer.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance))
+            {
+                PlanetController planetHit = hitInfo.collider.GetComponent<PlanetController>();
+
+                if (planetHit != null)
+                {
+                    SendShip(planetHit);
+                }
+            }
+
+        }
     }
 
     private void Interact(PlanetController planetController)
@@ -56,6 +67,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             SendShip(planetController);
+
         }
 
        

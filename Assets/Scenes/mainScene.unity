@@ -993,7 +993,7 @@ MonoBehaviour:
         m_MethodName: SetSettingPlanet
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: a85853ad7d5a6d147a584d68bb2f078a,
+          m_ObjectArgument: {fileID: 11400000, guid: 438d63493a86b3c4684b0103c66405ad,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: DifficultSetting, Assembly-CSharp
           m_IntArgument: 0

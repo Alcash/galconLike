@@ -21,11 +21,12 @@ public class PlanetInfo : MonoBehaviour
         set
         {
             teamInfo = value;
-            onInfoChanged.Invoke();
+            OnTeamChanged.Invoke();
         }
     }
 
     public UnityEvent onInfoChanged = new UnityEvent();
+    public UnityEvent OnTeamChanged = new UnityEvent();
 
     private int size;
     public int Size => size;
