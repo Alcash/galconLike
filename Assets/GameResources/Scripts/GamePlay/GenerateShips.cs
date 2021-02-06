@@ -16,6 +16,9 @@ public class GenerateShips : MonoBehaviour
 
     private float timer;
 
+    [SerializeField]
+    private DifficultSetting difficultSetting;
+
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
@@ -32,14 +35,14 @@ public class GenerateShips : MonoBehaviour
         //TODO: Ограничение для нейтралов. если не придумаю лучше
         if (planetInfo.TeamInfo.TeamName == "Neutral")
         {
-            shipPerPeriod = 1;
-            timerPeriod = 5;
+            shipPerPeriod = difficultSetting.GenerateShipNeutral;
+            timerPeriod = difficultSetting.GenerateShipNeutralTime;
         }
         else
         {
 
-            shipPerPeriod = 5;
-            timerPeriod = 1;
+            shipPerPeriod = difficultSetting.GenerateShipPlayer;
+            timerPeriod = difficultSetting.GenerateShipPlayerTime;
         }
     }
 

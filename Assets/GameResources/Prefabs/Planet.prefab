@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipPerPeriod: 5
+  difficultSetting: {fileID: 11400000, guid: 6de053a866e60a3489cfb0e7dea1729b, type: 2}
 --- !u!114 &7633110818823877798
 MonoBehaviour:
   m_ObjectHideFlags: 0

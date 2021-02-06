@@ -89,6 +89,7 @@ public class PlanetController : MonoBehaviour
     public void ChangeTeam(TeamInfo teamInfo)
     {        
         planetInfo.TeamInfo = teamInfo;
+        GameController.OnPlanetChangeTeam();
     }
 }
 

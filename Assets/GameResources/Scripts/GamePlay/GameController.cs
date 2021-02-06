@@ -2,60 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 /// <summary>
 /// Контроллер игры
 /// </summary>
 public class GameController : MonoBehaviour
-{   
+{
+    public static UnityAction OnPlanetChangeTeam = delegate { };
     [SerializeField]
-    private GameObject planetPrefab;
+    private WorldGenerator worldGenerator;
 
-    private int minPlanetCount = 3;
-    private int maxPlanetCount = 10;
-       
-    private PlayerController playerController;
+    [SerializeField]
+    private GameObject mainMenu;
 
-    private List<PlanetController> planetControllers = new List<PlanetController>();
+    private float waitToEndTime = 2;
 
-    private int minPlanetSize = 3;
-    private int maxPlanetSize = 7;
+    [SerializeField]
+    private ShipPool shipPool;
 
+    /// <summary>
+    /// Начать игру
+    /// </summary>
+    public void StartGame()
+    {        
+        worldGenerator.GenerateWorld();
+        mainMenu.SetActive(false);
+        OnPlanetChangeTeam += CheckEndGame;
 
-    private void OnEnable()
-    {
-        playerController = FindObjectOfType<PlayerController>();
-        CreateWorld();    
     }
 
-    private void CreateWorld()
+    /// <summary>
+    /// Закончить игру
+    /// </summary>
+    public void EndGame()
     {
+        worldGenerator.ClearWorld();
+        mainMenu.SetActive(true);
+        OnPlanetChangeTeam -= CheckEndGame;
+        shipPool.HideShips();
+    }
 
-        int planetCount = Random.Range(minPlanetCount, maxPlanetCount);
 
-        for(int i = 0; i< planetCount; i++)
+    private void CheckEndGame()
+    {
+        Debug.Log("CheckEndGame");
+
+        bool oneTeam = true;
+        TeamInfo teamInfo = worldGenerator.PlanetControllers.FirstOrDefault().PlanetInfo.TeamInfo;
+        Debug.Log("teamInfo " + teamInfo.TeamName);
+        foreach (var item in worldGenerator.PlanetControllers)
         {
-            Vector3 spawnPos = Random.insideUnitSphere  * planetCount * planetCount;
-            spawnPos.y = transform.position.y;
-            CreatePlanet(spawnPos);
+            Debug.Log("item " + item.PlanetInfo.TeamInfo.TeamName);
+            oneTeam &= teamInfo == item.PlanetInfo.TeamInfo;
+            Debug.Log("oneTeam " + oneTeam);
         }
 
-        int playerRandPlanet = Random.Range(0, planetCount);
-        ChoosePlayerPlanet(planetControllers[playerRandPlanet]);
+        if(oneTeam)
+        {
+            StartCoroutine(WaitToEndGame());
+        }
     }
 
-    private void CreatePlanet(Vector3 vector3)
+    private IEnumerator WaitToEndGame()
     {
-        GameObject planetGO = Instantiate(planetPrefab, vector3,Quaternion.identity);
-        PlanetController planetController = planetGO.GetComponent<PlanetController>();
-        planetControllers.Add(planetController);
-        int size = Random.Range(minPlanetSize, maxPlanetSize);
-
-        planetController.PlanetInfo.SetSize(size);
-    }
-
-    private void ChoosePlayerPlanet(PlanetController planetController)
-    {
-        planetController.ChangeTeam(playerController.PlayerTeam);
+        yield return new WaitForSeconds(waitToEndTime);
+        EndGame();
     }
 }
