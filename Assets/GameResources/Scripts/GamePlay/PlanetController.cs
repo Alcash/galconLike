@@ -10,10 +10,7 @@ public class PlanetController : MonoBehaviour
     private float percentShipSend = 0.5f;
     private PlanetInfo planetInfo;
     public PlanetInfo PlanetInfo => planetInfo;
-
-    private int minPlanetSize = 3;
-    private int maxPlanetSize = 7;
-
+    
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
@@ -66,14 +63,7 @@ public class PlanetController : MonoBehaviour
         {
             PlanetInfo.ChangeShipCount(-shipController.ShipPower);
         }       
-    }
-
-    private void OnEnable()
-    {
-        int size = Random.Range(minPlanetSize, maxPlanetSize);
-        
-        planetInfo.SetSize(size);       
-    }
+    }    
 
     /// <summary>
     /// Изменяет команду планеты

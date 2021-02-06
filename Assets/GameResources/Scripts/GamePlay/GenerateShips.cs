@@ -35,6 +35,12 @@ public class GenerateShips : MonoBehaviour
             shipPerPeriod = 1;
             timerPeriod = 5;
         }
+        else
+        {
+
+            shipPerPeriod = 5;
+            timerPeriod = 1;
+        }
     }
 
     private void Update()

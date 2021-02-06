@@ -11,14 +11,16 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject planetPrefab;
 
-    private int minPlanetCount = 2;
+    private int minPlanetCount = 3;
     private int maxPlanetCount = 10;
        
     private PlayerController playerController;
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
 
-     
+    private int minPlanetSize = 3;
+    private int maxPlanetSize = 7;
+
 
     private void OnEnable()
     {
@@ -45,7 +47,11 @@ public class GameController : MonoBehaviour
     private void CreatePlanet(Vector3 vector3)
     {
         GameObject planetGO = Instantiate(planetPrefab, vector3,Quaternion.identity);
-        planetControllers.Add(planetGO.GetComponent<PlanetController>());        
+        PlanetController planetController = planetGO.GetComponent<PlanetController>();
+        planetControllers.Add(planetController);
+        int size = Random.Range(minPlanetSize, maxPlanetSize);
+
+        planetController.PlanetInfo.SetSize(size);
     }
 
     private void ChoosePlayerPlanet(PlanetController planetController)
