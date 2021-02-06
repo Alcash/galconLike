@@ -158,10 +158,11 @@ public class WorldGenerator : MonoBehaviour
     private void CreatePlanet(Vector4 vector3)
     {
         GameObject planetGO = Instantiate(planetPrefab, vector3,Quaternion.identity);
+        
         PlanetController planetController = planetGO.GetComponent<PlanetController>();
         planetControllers.Add(planetController);
-        
 
+        planetGO.name = "Planet_"+planetControllers.Count;
         planetController.PlanetInfo.SetSize((int)vector3.w);
     }
 

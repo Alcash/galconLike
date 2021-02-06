@@ -30,6 +30,8 @@ public class PlanetInfo : MonoBehaviour
     private int size;
     public int Size => size;
 
+    private int freeShipAmount = 0;
+    public int FreeShipAmount => freeShipAmount;
 
     private int shipCount = 0;
     public int ShipCount => shipCount;
@@ -41,9 +43,29 @@ public class PlanetInfo : MonoBehaviour
     public void ChangeShipCount(int count)
     {
         shipCount += count;
+
+        //Если корабль сделал меньше 0. те при  1 юните на планете принес 2 юнита, стало -1. то при этом становится уже 1 юнит тимы корабля на планете
+        if(shipCount < 0)
+        {
+            shipCount = Mathf.Abs(shipCount);
+        }
+
+        if(count > 0)
+        {
+            freeShipAmount += count;
+        }
         onInfoChanged.Invoke();
-    }  
-    
+    }
+
+    /// <summary>
+    /// Изменеяет количество кораблей планеты
+    /// </summary>
+    /// <param name="count"></param>
+    public void ChangeFreeShipAmount(int count)
+    {
+        freeShipAmount += count;        
+    }
+
     /// <summary>
     /// Установить размер
     /// </summary>
