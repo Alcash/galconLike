@@ -242,6 +242,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetPrefab: {fileID: 959630450609250503, guid: 37a22c185d36b4643a9894b4c8f81ab1,
     type: 3}
+  minPlanetCount: 2
+  maxPlanetCount: 10
+  minPlanetSize: 6
+  maxPlanetSize: 15
+  worldHeight: 84
+  worldWidth: 156
 --- !u!4 &352214846
 Transform:
   m_ObjectHideFlags: 0

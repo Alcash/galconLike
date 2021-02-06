@@ -61,4 +61,9 @@ public class ShipController : MonoBehaviour
     {
         teamInfo = newTeamInfo;
     }
+
+    public void SetShipPower(int power)
+    {
+        shipPower = power;
+    }
 }
