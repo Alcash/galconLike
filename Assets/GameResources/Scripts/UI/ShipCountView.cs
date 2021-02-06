@@ -33,7 +33,14 @@ public class ShipCountView : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = camera.WorldToScreenPoint(planetInfo.transform.position);
+        if (planetInfo != null)
+        {
+            transform.position = camera.WorldToScreenPoint(planetInfo.transform.position);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void UpdateView()

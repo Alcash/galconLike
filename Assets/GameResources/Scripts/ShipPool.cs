@@ -15,6 +15,8 @@ public class ShipPool : MonoBehaviour
 
     private List<ShipController> objectsPool;
 
+    private List<ShipController> spawnedObjectsPool;
+
     private void Awake()
     {
         if(Instance == null)
@@ -31,6 +33,7 @@ public class ShipPool : MonoBehaviour
     private void OnEnable()
     {
         objectsPool = new List<ShipController>();
+        spawnedObjectsPool = new List<ShipController>();
     }
 
     /// <summary>
@@ -46,7 +49,8 @@ public class ShipPool : MonoBehaviour
         }
 
         ShipController result = objectsPool.FirstOrDefault();
-        objectsPool.Remove(result);        
+        objectsPool.Remove(result);
+        spawnedObjectsPool.Add(result);
         return result;       
     }
 
@@ -58,6 +62,7 @@ public class ShipPool : MonoBehaviour
     {
         ship.gameObject.SetActive(false);
         objectsPool.Add(ship);
+        spawnedObjectsPool.Remove(ship);
     }
 
     private void AddObject()
@@ -66,5 +71,20 @@ public class ShipPool : MonoBehaviour
         objectsPool.Add(inst);
     }
 
+    /// <summary>
+    /// Спрятать корабли
+    /// </summary>
+    public void HideShips()
+    {
+
+        foreach (var item in spawnedObjectsPool)
+        {
+            item.gameObject.SetActive(false);
+
+        }
+        objectsPool.AddRange(spawnedObjectsPool);
+        spawnedObjectsPool.Clear();
+
+    }
 
 }

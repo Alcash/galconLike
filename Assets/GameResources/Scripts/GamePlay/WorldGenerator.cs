@@ -12,14 +12,15 @@ public class WorldGenerator : MonoBehaviour
 {   
     [SerializeField]
     private GameObject planetPrefab;
+
     [SerializeField]
-    private int minPlanetCount = 3;
-    [SerializeField]
-    private int maxPlanetCount = 10;
+    private DifficultSetting difficultSetting;
        
     private PlayerController playerController;
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
+
+    public List<PlanetController> PlanetControllers => planetControllers;
 
     [SerializeField]
     private int minPlanetSize = 6;
@@ -126,7 +127,10 @@ public class WorldGenerator : MonoBehaviour
         return false;
     }
 
-    private void OnEnable()
+    /// <summary>
+    /// Генерирует мир
+    /// </summary>
+    public void GenerateWorld()
     {
         playerController = FindObjectOfType<PlayerController>();
         CreateWorld();    
@@ -135,7 +139,7 @@ public class WorldGenerator : MonoBehaviour
     private void CreateWorld()
     {
 
-        int planetCount = Random.Range(minPlanetCount, maxPlanetCount);
+        int planetCount = Random.Range(difficultSetting.MaxPlanetCount, difficultSetting.MaxPlanetCount);
 
         for(int i = 0; i< planetCount; i++)
         {
@@ -169,5 +173,17 @@ public class WorldGenerator : MonoBehaviour
     private void ChoosePlayerPlanet(PlanetController planetController)
     {
         planetController.ChangeTeam(playerController.PlayerTeam);
+    }
+
+    /// <summary>
+    /// Очистить мир
+    /// </summary>
+    public void ClearWorld()
+    {
+        foreach (var item in planetControllers)
+        {
+            Destroy(item.gameObject);
+        }
+        planetControllers.Clear();
     }
 }
