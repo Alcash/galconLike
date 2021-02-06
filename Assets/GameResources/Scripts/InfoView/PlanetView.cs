@@ -15,7 +15,7 @@ public class PlanetView : TeamView
 
     private PlanetInfo planetInfo;
 
-    private float planetSizeOffset = 3;
+    private float planetSizeOffset = 1;
 
     protected override void Awake()
     {

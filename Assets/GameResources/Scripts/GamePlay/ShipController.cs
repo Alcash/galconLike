@@ -17,6 +17,8 @@ public class ShipController : MonoBehaviour
     private int shipPower = 1;
     public int ShipPower => shipPower;
 
+    private float distanceToPlanetOffsetMulti = 0.6f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -26,7 +28,7 @@ public class ShipController : MonoBehaviour
     {
         if (targetPlanet != null)
         {
-            isNearDistPlanet = (transform.position - targetPlanet.transform.position).magnitude < targetPlanet.PlanetInfo.Size;
+            isNearDistPlanet = (transform.position - targetPlanet.transform.position).magnitude < targetPlanet.PlanetInfo.Size * distanceToPlanetOffsetMulti;
         }
 
         if(isNearDistPlanet)

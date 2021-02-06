@@ -20,8 +20,8 @@ public class WorldGenerator : MonoBehaviour
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
 
-    private int minPlanetSize = 3;
-    private int maxPlanetSize = 7;
+    private int minPlanetSize = 6;
+    private int maxPlanetSize = 15;
 
     private int worldHeight = 42*2;
     private int worldWidth = 78*2;
