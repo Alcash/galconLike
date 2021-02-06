@@ -24,7 +24,7 @@ public class DifficultSetting : ScriptableObject
 
     [SerializeField]
     private PlanetGenShipParam bot;
-    public PlanetGenShipParam Bot => player;
+    public PlanetGenShipParam Bot => bot;
 
     /// <summary>
     /// Установить значение на основе
@@ -33,20 +33,11 @@ public class DifficultSetting : ScriptableObject
     public void SetSettingPlanet(DifficultSetting difficultSetting)
     {
         minPlanetCount = difficultSetting.MinPlanetCount;
-        maxPlanetCount = difficultSetting.MaxPlanetCount;
-        Debug.Log("difficultSetting" + difficultSetting.name);
-        Debug.Log("GenerateShip.Bot" + difficultSetting.Bot.GenerateShip);
-
-        player.GenerateShip = difficultSetting.Player.GenerateShip;
-        player.GenerateShipTime = difficultSetting.Player.GenerateShipTime;
-
-        neutral.GenerateShip = difficultSetting.Neutral.GenerateShip;
-        neutral.GenerateShipTime = difficultSetting.Neutral.GenerateShipTime;
-
-        bot.GenerateShip = difficultSetting.Bot.GenerateShip;
-        bot.GenerateShipTime = difficultSetting.Bot.GenerateShipTime;
-
-        Debug.Log("GenerateShip.Bot" + bot.GenerateShip);
+        maxPlanetCount = difficultSetting.MaxPlanetCount;     
+        
+        player = difficultSetting.Player;
+        neutral = difficultSetting.Neutral;
+        bot = difficultSetting.Bot;
     }
 
     private void SctructSet(PlanetGenShipParam param, PlanetGenShipParam newParam)
