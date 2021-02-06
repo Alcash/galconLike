@@ -15,17 +15,16 @@ public class DifficultSetting : ScriptableObject
     private int maxPlanetCount = 10;
     public int MaxPlanetCount => maxPlanetCount;
     [SerializeField]
-    private int generateShipNeutral = 1;
-    public int GenerateShipNeutral => generateShipNeutral;
+    private PlanetGenShipParam neutral;
+    public PlanetGenShipParam Neutral => neutral;
+
     [SerializeField]
-    private int generateShipNeutralTime = 5;
-    public int GenerateShipNeutralTime => generateShipNeutralTime;
+    private PlanetGenShipParam player;
+    public PlanetGenShipParam Player => player;
+
     [SerializeField]
-    private int generateShipPlayer = 1;
-    public int GenerateShipPlayer => generateShipPlayer;
-    [SerializeField]
-    private int generateShipPlayerTime = 5;
-    public int GenerateShipPlayerTime => generateShipPlayerTime;
+    private PlanetGenShipParam bot;
+    public PlanetGenShipParam Bot => bot;
 
     /// <summary>
     /// Установить значение на основе
@@ -34,10 +33,23 @@ public class DifficultSetting : ScriptableObject
     public void SetSettingPlanet(DifficultSetting difficultSetting)
     {
         minPlanetCount = difficultSetting.MinPlanetCount;
-        maxPlanetCount = difficultSetting.MaxPlanetCount;
-        generateShipNeutral = difficultSetting.GenerateShipNeutral;
-        generateShipNeutralTime = difficultSetting.GenerateShipNeutralTime;
-        generateShipPlayer = difficultSetting.GenerateShipPlayer;
-        generateShipPlayerTime = difficultSetting.GenerateShipPlayerTime;
+        maxPlanetCount = difficultSetting.MaxPlanetCount;     
+        
+        player = difficultSetting.Player;
+        neutral = difficultSetting.Neutral;
+        bot = difficultSetting.Bot;
     }
+
+    private void SctructSet(PlanetGenShipParam param, PlanetGenShipParam newParam)
+    {
+        param.GenerateShip = newParam.GenerateShip;
+        param.GenerateShipTime = newParam.GenerateShipTime;
+    }
+}
+
+[System.Serializable]
+public class PlanetGenShipParam
+{   
+    public int GenerateShip;
+    public int GenerateShipTime;
 }

@@ -35,6 +35,10 @@ public class WorldGenerator : MonoBehaviour
 
     private bool[][] worldGrid;
 
+    private float fillGrid = 0;
+
+    private float maxFillGrid = 0.7f;
+
     private void Awake()
     {
         worldGrid = new bool[worldWidth][];
@@ -69,7 +73,7 @@ public class WorldGenerator : MonoBehaviour
         }
         while (CheckLockPlace(x, z, size));
 
-        BypassGridLock(x, z, size);
+        BypassGrid(x, z, size, SetLockPlace);
 
         result.x = x - worldWidth / 2;
         result.z = z - worldHeight / 2;
@@ -104,10 +108,13 @@ public class WorldGenerator : MonoBehaviour
     }
 
     private void SetLockPlace(int? xIndex, int? yIndex)
-    {     
+    {
+        
+        worldGrid[(int)xIndex][(int)yIndex] = true;
 
-       worldGrid[(int)xIndex][(int)yIndex] = true;
-            
+        fillGrid += 1 /( worldWidth * worldHeight);
+
+
     }
 
     private bool CheckLockPlace(int x,int y,int size)
@@ -141,7 +148,7 @@ public class WorldGenerator : MonoBehaviour
 
         int planetCount = Random.Range(difficultSetting.MaxPlanetCount, difficultSetting.MaxPlanetCount);
 
-        for(int i = 0; i< planetCount; i++)
+        for(int i = 0; i< planetCount && fillGrid < maxFillGrid; i++)
         {
             Vector4 spawnPos = GeneratePlanetParam();
 
@@ -155,9 +162,29 @@ public class WorldGenerator : MonoBehaviour
 
         int playerRandPlanet = Random.Range(0, planetCount);
         ChoosePlayerPlanet(planetControllers[playerRandPlanet]);
+        
+        GameObject botGO = new GameObject();
+        botGO.name = "Bot1";
+        BotController bot  = botGO.AddComponent<BotController>();
+        TeamInfo teamInfo = new TeamInfo(botGO.name, Color.red);
+        bot.InitBot(teamInfo, FindFarOfPlayer(planetControllers[playerRandPlanet]), this);
     }
 
+    private PlanetController FindFarOfPlayer(PlanetController playerPlanet)
+    {
+        PlanetController result = null;
+        float maxDistance = 0;
+        foreach (var item in PlanetControllers)
+        {
+            if (item.PlanetInfo.TeamInfo.TeamName == "Neutral" && (item.transform.position - playerPlanet.transform.position).magnitude > maxDistance)
+            {
+                result = item;
+                maxDistance = (item.transform.position - transform.position).magnitude;
+            }
+        }
 
+        return result;
+    }
 
     private void CreatePlanet(Vector4 vector3)
     {

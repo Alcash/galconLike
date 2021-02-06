@@ -14,12 +14,14 @@ public class GameController : MonoBehaviour
     private WorldGenerator worldGenerator;
 
     [SerializeField]
-    private GameObject mainMenu;
+    private GameObject mainMenu;   
 
     private float waitToEndTime = 2;
 
     [SerializeField]
     private ShipPool shipPool;
+
+    private BotController botController;
 
     /// <summary>
     /// Начать игру
@@ -45,17 +47,13 @@ public class GameController : MonoBehaviour
 
 
     private void CheckEndGame()
-    {
-        Debug.Log("CheckEndGame");
-
+    {      
         bool oneTeam = true;
         TeamInfo teamInfo = worldGenerator.PlanetControllers.FirstOrDefault().PlanetInfo.TeamInfo;
-        Debug.Log("teamInfo " + teamInfo.TeamName);
+       
         foreach (var item in worldGenerator.PlanetControllers)
-        {
-            Debug.Log("item " + item.PlanetInfo.TeamInfo.TeamName);
-            oneTeam &= teamInfo == item.PlanetInfo.TeamInfo;
-            Debug.Log("oneTeam " + oneTeam);
+        {          
+            oneTeam &= teamInfo == item.PlanetInfo.TeamInfo;            
         }
 
         if(oneTeam)

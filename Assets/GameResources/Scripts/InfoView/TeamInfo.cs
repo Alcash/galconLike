@@ -20,4 +20,10 @@ public class TeamInfo
         teamName = "Neutral";
         teamColor = Color.gray;
     }
+
+    public TeamInfo(string teamName, Color teamColor)
+    {
+        this.teamName = teamName;
+        this.teamColor = teamColor;
+    }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be84184f357ea4046a0384d229526516, type: 3}
-  m_Name: Light
+  m_Name: Easy
   m_EditorClassIdentifier: 
   minPlanetCount: 3
   maxPlanetCount: 6

@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minPlanetCount: 5
   maxPlanetCount: 10
-  generateShipNeutral: 2
-  generateShipNeutralTime: 4
-  generateShipPlayer: 5
-  generateShipPlayerTime: 1
+  neutral:
+    GenerateShip: 2
+    GenerateShipTime: 5
+  player:
+    GenerateShip: 5
+    GenerateShipTime: 1
+  bot:
+    GenerateShip: 4
+    GenerateShipTime: 2

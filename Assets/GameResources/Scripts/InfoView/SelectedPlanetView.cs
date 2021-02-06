@@ -20,7 +20,7 @@ public class SelectedPlanetView : MonoBehaviour
     protected void Awake()
     {       
         planetInfo = GetComponent<PlanetInfo>();
-        planetInfo.onInfoChanged.AddListener(UpdateView);
+        planetInfo.OnTeamChanged.AddListener(UpdateView);
         lightSelect = selectView.GetComponent<Light>();
     }
 
@@ -44,6 +44,6 @@ public class SelectedPlanetView : MonoBehaviour
 
     private void OnDestroy()
     {
-        planetInfo.onInfoChanged.RemoveListener(UpdateView);
+        planetInfo.OnTeamChanged.RemoveListener(UpdateView);
     }
 }
