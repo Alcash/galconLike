@@ -161,15 +161,20 @@ public class WorldGenerator : MonoBehaviour
         }
 
         int playerRandPlanet = Random.Range(0, planetCount);
-        ChoosePlayerPlanet(planetControllers[playerRandPlanet]);
+        ChooseTeamPlanet(playerController.PlayerTeam,planetControllers[playerRandPlanet]);
+               
+        InitBot(FindFarOfPlayer(planetControllers[playerRandPlanet]));        
+    }
 
 
+    private void InitBot(PlanetController planetController)
+    {
         Material botMaterial = Instantiate(playerController.PlayerTeam.MaterialTeam);
         GameObject botGO = new GameObject();
-        botGO.name = "Bot1";
-        BotController bot  = botGO.AddComponent<BotController>();
-        TeamInfo teamInfo = new TeamInfo(botGO.name, Color.red, botMaterial);
-        bot.InitBot(teamInfo, FindFarOfPlayer(planetControllers[playerRandPlanet]), this);
+        botGO.name = "Bot_"+ planetController.name;
+        BotController bot = botGO.AddComponent<BotController>();
+        TeamInfo teamInfo = new TeamInfo(botGO.name, Color.red, botMaterial);        
+        bot.InitBot(teamInfo, planetController, this);
     }
 
     private PlanetController FindFarOfPlayer(PlanetController playerPlanet)
@@ -180,11 +185,11 @@ public class WorldGenerator : MonoBehaviour
         {
             if (item.PlanetInfo.TeamInfo.TeamName == "Neutral" && (item.transform.position - playerPlanet.transform.position).magnitude > maxDistance)
             {
+               
                 result = item;
-                maxDistance = (item.transform.position - transform.position).magnitude;
+                maxDistance = (item.transform.position - playerPlanet.transform.position).magnitude;                
             }
-        }
-
+        }       
         return result;
     }
 
@@ -199,7 +204,7 @@ public class WorldGenerator : MonoBehaviour
         planetController.PlanetInfo.SetSize((int)vector3.w);
     }
 
-    private void ChoosePlayerPlanet(PlanetController planetController)
+    private void ChooseTeamPlanet(TeamInfo teamInfo,PlanetController planetController)
     {
         planetController.ChangeTeam(playerController.PlayerTeam);
     }
