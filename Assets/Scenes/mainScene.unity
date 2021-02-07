@@ -493,6 +493,7 @@ MonoBehaviour:
   playerTeam:
     teamName: Player
     teamColor: {r: 0, g: 0.9811321, b: 0.93361354, a: 1}
+    materialTeam: {fileID: 2100000, guid: 3ffdaf56bfb87214aa6a0565b0fce00f, type: 2}
 --- !u!1 &683736216
 GameObject:
   m_ObjectHideFlags: 0
