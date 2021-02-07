@@ -162,11 +162,13 @@ public class WorldGenerator : MonoBehaviour
 
         int playerRandPlanet = Random.Range(0, planetCount);
         ChoosePlayerPlanet(planetControllers[playerRandPlanet]);
-        
+
+
+        Material botMaterial = Instantiate(playerController.PlayerTeam.MaterialTeam);
         GameObject botGO = new GameObject();
         botGO.name = "Bot1";
         BotController bot  = botGO.AddComponent<BotController>();
-        TeamInfo teamInfo = new TeamInfo(botGO.name, Color.red);
+        TeamInfo teamInfo = new TeamInfo(botGO.name, Color.red, botMaterial);
         bot.InitBot(teamInfo, FindFarOfPlayer(planetControllers[playerRandPlanet]), this);
     }
 

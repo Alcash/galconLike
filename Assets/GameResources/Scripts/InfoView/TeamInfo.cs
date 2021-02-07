@@ -13,7 +13,11 @@ public class TeamInfo
     public string TeamName => teamName;
     [SerializeField]
     private Color teamColor = Color.cyan;
-    public Color TeamColor => teamColor;
+    public Color TeamColor => teamColor;   
+
+    [SerializeField]
+    private Material materialTeam;   
+    public Material MaterialTeam => materialTeam;
 
     public TeamInfo()
     {
@@ -21,9 +25,21 @@ public class TeamInfo
         teamColor = Color.gray;
     }
 
-    public TeamInfo(string teamName, Color teamColor)
+    public TeamInfo(string teamName, Color teamColor, Material material)
     {
         this.teamName = teamName;
-        this.teamColor = teamColor;
+        this.teamColor = teamColor;        
+        materialTeam = material;
+        materialTeam.name += "_" + teamName;
+        materialTeam.color = teamColor;
     }
+
+    public TeamInfo(TeamInfo teamInfo)
+    {
+        this.teamName = teamInfo.teamName;
+        this.teamColor = teamInfo.teamColor;
+        materialTeam = teamInfo.MaterialTeam;
+        materialTeam.color = teamInfo.teamColor;
+    }
+
 }

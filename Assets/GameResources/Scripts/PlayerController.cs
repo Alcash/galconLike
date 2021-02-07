@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     {
         cameraPlayer = Camera.main;
         rayDistance = cameraPlayer.farClipPlane;
+
+        playerTeam = new TeamInfo(playerTeam.TeamName, playerTeam.TeamColor, Instantiate(playerTeam.MaterialTeam));
     }
 
     private void Update()

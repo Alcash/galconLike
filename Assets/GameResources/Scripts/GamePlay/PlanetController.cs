@@ -15,6 +15,7 @@ public class PlanetController : MonoBehaviour
 
     private int wave = 0;
 
+
     private void Awake()
     {
         planetInfo = GetComponent<PlanetInfo>();
@@ -88,7 +89,7 @@ public class PlanetController : MonoBehaviour
     /// <param name="teamInfo"></param>
     public void ChangeTeam(TeamInfo teamInfo)
     {        
-        planetInfo.TeamInfo = teamInfo;
+        planetInfo.TeamInfo = teamInfo;       
         GameController.OnPlanetChangeTeam();
     }
 }
